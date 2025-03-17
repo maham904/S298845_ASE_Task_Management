@@ -21,12 +21,12 @@ jobs:
         with:
           python-version: '3.9'  # Use the Python version you need
 
-      - name: 📦 Install Dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install flake8
+          pip install -r requirements.txt
 
-      - name: 🚨 Run Linter
+      - name: Run linting (flake8)
         run: |
           flake8 . --exclude .venv,migrations --max-line-length=120
 
