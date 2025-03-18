@@ -68,7 +68,7 @@ jobs:
 
       - name: Start Grafana
         run: |
-          docker compose -f C:\Users\PSLCS\Desktop\S298845\task_management_system\docker-compose-monitoring.yml up -d  # Start Grafana
+          docker compose -f docker-compose-monitoring.yml up -d  # Start Grafana
 
       - name: Wait for Grafana to be ready
         run: |
@@ -81,4 +81,4 @@ jobs:
       - name: Shutdown Grafana
         if: always()  # Ensure cleanup even if the job fails
         run: |
-          docker compose -f C:\Users\PSLCS\Desktop\S298845\task_management_system\docker-compose-monitoring.yml down  # Use docker compose
+          docker compose -f docker-compose-monitoring.yml down  # Use docker compose
