@@ -68,15 +68,19 @@ jobs:
 
       - name: Start Prometheus and Grafana
         run: |
-          docker compose -f docker-compose-monitoring.yml up -d  # Use docker compose
+          docker compose -f docker-compose-monitoring.yml up -d  # Start services
+
+      - name: Wait for Prometheus to be ready
+        run: |
+          sleep 15  # Wait for 15 seconds to allow services to start
 
       - name: Verify Prometheus
         run: |
-          curl --retry 5 --retry-delay 10 --retry-all-errors http://localhost:9090
+          curl --retry 5 --retry-delay 10 --retry-all-errors http://prometheus:9090  # Use service name
 
       - name: Verify Grafana
         run: |
-          curl --retry 5 --retry-delay 10 --retry-all-errors http://localhost:3000
+          curl --retry 5 --retry-delay 10 --retry-all-errors http://grafana:3000  # Use service name
 
       - name: Shutdown Prometheus and Grafana
         if: always()  # Ensure cleanup even if the job fails
