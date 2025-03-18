@@ -64,8 +64,6 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set up Docker
-        uses: docker/setup-qemu-action@v2  # Required for multi-arch builds (optional)
-        uses: docker/setup-buildx-action@v2  # Required for multi-arch builds (optional)
         uses: docker/setup-docker-compose@v2  # Install Docker Compose
 
       - name: Start Prometheus and Grafana
