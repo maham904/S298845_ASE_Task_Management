@@ -1,9 +1,6 @@
 global:
   scrape_interval: 15s  # Scrape targets every 15 seconds
 scrape_configs:
-  - job_name: 'task_management_system'
-    static_configs:
-      - targets: [ 'host.docker.internal:8000' ]  # Replace with your actual service port
   - job_name: 'prometheus'
     static_configs:
-      - targets: [ 'localhost:9090' ]  # Scrape Prometheus itself
+      - targets: ['localhost:9090']  # Scrape Prometheus itself

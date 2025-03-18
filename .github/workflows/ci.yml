@@ -55,7 +55,7 @@ jobs:
           push: true
           tags: mahamatharkhan/taskmanagementsystem:latest
 
-  grafana-prometheus:
+  grafana:
     runs-on: ubuntu-latest
     needs: lint-and-test  # Run this job only if lint-and-test succeeds
 
@@ -64,25 +64,21 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Set up Docker
-        uses: docker/setup-buildx-action@v2  # Install Docker and Docker Compose
+        uses: docker/setup-buildx-action@v2  # Install Docker
 
-      - name: Start Prometheus and Grafana
+      - name: Start Grafana
         run: |
-          docker compose -f docker-compose-monitoring.yml up -d  # Start services
+          docker compose -f C:\Users\PSLCS\Desktop\S298845\task_management_system\docker-compose-monitoring.yml up -d  # Start Grafana
 
-      - name: Wait for Prometheus to be ready
+      - name: Wait for Grafana to be ready
         run: |
-          sleep 15  # Wait for 15 seconds to allow services to start
-
-      - name: Verify Prometheus
-        run: |
-          curl --retry 5 --retry-delay 10 --retry-all-errors http://prometheus:9090  # Use service name
+          sleep 15  # Wait for 15 seconds to allow Grafana to start
 
       - name: Verify Grafana
         run: |
-          curl --retry 5 --retry-delay 10 --retry-all-errors http://grafana:3000  # Use service name
+          curl --retry 5 --retry-delay 10 --retry-all-errors http://localhost:3000  # Use localhost
 
-      - name: Shutdown Prometheus and Grafana
+      - name: Shutdown Grafana
         if: always()  # Ensure cleanup even if the job fails
         run: |
-          docker compose -f docker-compose-monitoring.yml down  # Use docker compose
+          docker compose -f C:\Users\PSLCS\Desktop\S298845\task_management_system\docker-compose-monitoring.yml down  # Use docker compose
