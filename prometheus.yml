@@ -1,7 +1,9 @@
 global:
-  scrape_interval: 15s  # How often to scrape metrics
-
+  scrape_interval: 15s  # Scrape targets every 15 seconds
 scrape_configs:
-  - job_name: 'django_app'
+  - job_name: 'task_management_system'
     static_configs:
-      - targets: ['django:8000']  # Use the service name if using Docker Compose
+      - targets: [ 'host.docker.internal:8000' ]  # Replace with your actual service port
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: [ 'localhost:8000' ]  # Scrape Prometheus itself
