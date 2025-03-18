@@ -1,9 +1,7 @@
 from django.contrib import admin
-from django.urls import path, include
-from tasks import views  # Correct import statement
+from django.urls import include, path
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("tasks/", include("tasks.urls")),
-    path("", views.home, name="home"),  # Example: Map root path to a home view
+    path("admin/", admin.site.urls),  # Admin URLs
+    path("", include("tasks.urls")),  # Include tasks app URLs
 ]

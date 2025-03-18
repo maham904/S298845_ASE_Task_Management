@@ -1,0 +1,21 @@
+<!-- tasks/templates/tasks/change_priority.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Priority</title>
+</head>
+<body>
+    <h1>Change Priority for {{ task.title }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="priority">New Priority:</label>
+        <select name="priority" id="priority">
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+        </select>
+        <button type="submit">Change Priority</button>
+    </form>
+    <a href="{% url 'task_list' %}">Back to Task List</a>
+</body>
+</html>

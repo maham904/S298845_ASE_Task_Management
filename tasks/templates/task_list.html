@@ -1,20 +1,74 @@
+<!-- tasks/templates/tasks/task_list.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Task List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 5px;
+        }
+    </style>
 </head>
 <body>
     <h1>Task List</h1>
-    <ul>
-        {% for task in tasks %}
-            <li>
-                <a href="{% url 'task_detail' task.pk %}">{{ task.title }}</a>
-                - Priority: {{ task.get_priority_display }}
-                - Status: {% if task.completed %}Completed{% else %}Pending{% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    <a href="{% url 'create_task' %}">Create Task</a> |
+    <a href="{% url 'logout' %}">Logout</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Assigned To</th>
+                <th>Priority</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task in tasks %}
+                <tr>
+                    <td>{{ task.title }}</td>
+                    <td>{{ task.description }}</td>
+                    <td>{{ task.assigned_to }}</td>
+                    <td>{{ task.priority }}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{% url 'task_detail' task.id %}">View Details</a>
+                            {% if request.user.is_superuser %}
+                                <a href="{% url 'update_task' task.id %}">Update</a>
+                                <a href="{% url 'delete_task' task.id %}">Delete</a>
+                                <a href="{% url 'change_priority' task.id %}">Change Priority</a>
+                                <a href="{% url 'change_assigned' task.id %}">Change Assigned</a>
+                            {% endif %}
+                        </div>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
