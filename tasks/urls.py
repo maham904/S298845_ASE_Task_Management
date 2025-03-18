@@ -1,5 +1,6 @@
 from django.contrib import admin
 from django.urls import path
+from django_prometheus import exports
 
 from . import views
 
@@ -28,4 +29,5 @@ urlpatterns = [
         views.change_assigned,
         name="change_assigned",
     ),
+    path('metrics/', exports.ExportToDjangoView),
 ]
