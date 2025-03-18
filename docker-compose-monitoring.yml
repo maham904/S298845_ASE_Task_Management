@@ -1,13 +1,11 @@
-version: '3'
 services:
   prometheus:
-    image: prom/prometheus
+    image: prom/prometheus  # Use the official Prometheus image
     ports:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml  # Mount Prometheus config
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+    command: ["prometheus", "--config.file=/etc/prometheus/prometheus.yml"]  # Use a list format
 
   grafana:
     image: grafana/grafana
